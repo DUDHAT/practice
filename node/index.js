@@ -1,8 +1,12 @@
 const express = require("express");
 const session = require("express-session");
 const userModel = require("./database/model/model");
+const path = require("path");
+const user_router = require("./api/routes/user");
 const authRouter = require("./api/routes/auth");
+const productrouter = require("./api/routes/product");
 const passport = require("passport");
+const bodyparser = require("body-parser");
 const { configurePassport } = require("./tools/passport/config");
 const connections = require("./database/connect");
 const routes = require("./api/routes/auth");
@@ -18,79 +22,17 @@ app.use(
     secret: "SECRET",
   })
 );
+
+app.use(express.static(`${__dirname}/public`));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+
 configurePassport();
 
-// Routes
-app.use("/auth", authRouter);
-app.use("/", routes);
-
-// --------------------------
-
-/*
-1. refactor code 
-2. User endpoints 
-    GET /user/{123}
-    POST /user/create
-    POST /user/edit
-    DELETE /user/{2134}
-
-*/
-
-// refactor this
-
-// get fresh data from database
-// refactore to routes, controller
+app.use("/product", productrouter);
+app.use("/user", user_router);
 
 app.listen(port, () => console.log("App listening on port " + port));
-
-/*
-
-
-createServer();
-
-configureDatabase();
-
-configureRoutes();
-
-startServer();
-
-
-
-
-
-
-/// startServer
-
-app.listen(port, () => console.log("App listening on port " + port));
-
-
-
-// configureRoutes\
-
-
-route.get('/user', getUser);
-
-
-
-
-// controller 
-
-
-const getUser = (id) => {
-    userModei.find()
-}
-
-
-//configureDatabase
-
-
-connectDatebase()
-
-collections = createCollections();
-
-export {collections}
-
-*/

@@ -22,7 +22,7 @@ router.get(
 
 router.get("/", googleAuth);
 
-router.get("/google/success", googleAuthsuccess);
+router.get("/google/success/:id", googleAuthsuccess);
 
 router.get("/google/error", googleAutherror);
 

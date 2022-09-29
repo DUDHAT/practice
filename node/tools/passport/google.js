@@ -13,18 +13,18 @@ const addPassportGoogleStrategy = () => {
       },
       function (accessToken, refreshToken, profile, done) {
         let userProfile = profile;
-        console.log(userProfile);
-        user = {
-          fastname: userProfile.name.familyName,
-          lastname: userProfile.name.givenName,
-          email: userProfile.emails[0].value,
-        };
-        console.log(user);
-        userModel.create(user).then((data) => {
-          console.log(data);
-        });
+        // console.log(userProfile);
+        // user = {
+        //   fastname: userProfile.name.familyName,
+        //   lastname: userProfile.name.givenName,
+        //   email: userProfile.emails[0].value,
+        // };
+        // // console.log(user);
+        // userModel.create(user).then((data) => {
+        //   console.log("data", data);
+        // });
 
-        return done(null, userProfile);
+        return done(null, profile);
       }
     )
   );
